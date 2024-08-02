@@ -1,6 +1,5 @@
 package net.paveuu.smolbartek.block;
 
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
