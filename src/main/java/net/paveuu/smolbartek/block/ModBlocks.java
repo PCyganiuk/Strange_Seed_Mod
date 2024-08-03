@@ -13,6 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.paveuu.smolbartek.SmolBartekMod;
+import net.paveuu.smolbartek.block.custom.StrangeSeedCropBlock;
 import net.paveuu.smolbartek.item.ModItems;
 
 import java.util.function.Supplier;
@@ -20,12 +21,8 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SmolBartekMod.MOD_ID);
 
-    public static final RegistryObject<Block> STRANGE_SEED_PLANT = registerBlock("strange_seed_plant",
-            () -> new FlowerBlock(() -> MobEffects.DIG_SPEED, 15, BlockBehaviour.Properties.copy(Blocks.ALLIUM).noOcclusion().noCollission()));
-
-    public static final RegistryObject<Block> POTTED_STRANGE_SEED_PLANT = registerBlock("potted_strange_seed_plant",
-            () -> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT), ModBlocks.STRANGE_SEED_PLANT,
-            BlockBehaviour.Properties.copy(Blocks.POTTED_ALLIUM).noOcclusion()));
+    public static final RegistryObject<Block> STRANGE_PLANT_CROP = BLOCKS.register("strange_plant_crop",
+            () -> new StrangeSeedCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
