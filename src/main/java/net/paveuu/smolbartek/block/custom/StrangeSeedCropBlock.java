@@ -1,6 +1,10 @@
 package net.paveuu.smolbartek.block.custom;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -9,12 +13,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.paveuu.smolbartek.item.ModItems;
 
-//@TODO Watch datagen video and just added stage textures
 public class StrangeSeedCropBlock extends CropBlock {
 
-    public static final int MAX_AGE = 4;
-
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+    public static final int MAX_AGE = 3;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 
     public StrangeSeedCropBlock(Properties pProperties) {
         super(pProperties);
@@ -26,7 +28,7 @@ public class StrangeSeedCropBlock extends CropBlock {
     }
 
     @Override
-    protected IntegerProperty getAgeProperty() {
+    public IntegerProperty getAgeProperty() {
         return AGE;
     }
 
@@ -39,4 +41,16 @@ public class StrangeSeedCropBlock extends CropBlock {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE);
     }
+
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        //disable bone meal
+        return false;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        //does nothing
+    }
+
 }
