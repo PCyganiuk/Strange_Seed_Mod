@@ -19,7 +19,7 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
     protected void start() {
         add("strange_seed_from_oak_leaves", new AddItemModifier(new LootItemCondition[]{
                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.OAK_LEAVES).build(),
-                LootItemRandomChanceCondition.randomChance(0.00001f).build()}, ModItems.STRANGE_SEED.get()
+                LootItemRandomChanceCondition.randomChance(0.000000001f).build()}, ModItems.STRANGE_SEED.get()
         ));
     }
 }
