@@ -11,61 +11,37 @@ import net.minecraft.world.entity.Entity;
 
 public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart shrub;
-	private final ModelPart left_leg;
-	private final ModelPart right_leg;
-	private final ModelPart left_arm;
-	private final ModelPart right_arm;
-	private final ModelPart pot;
-	private final ModelPart torso;
-	private final ModelPart leaves_front;
-	private final ModelPart leaves_left;
-	private final ModelPart leaves_back;
-	private final ModelPart leaves_right;
-	private final ModelPart leaves_top;
-	private final ModelPart leaves_bottom;
 
 	public SmolBartekModel(ModelPart root) {
-		this.shrub = root.getChild("schrub");
-		this.left_leg = root.getChild("left_leg");
-		this.right_leg = root.getChild("right_leg");
-		this.left_arm = root.getChild("left_arm");
-		this.right_arm = root.getChild("right_arm");
-		this.pot = root.getChild("pot");
-		this.torso = root.getChild("torso");
-		this.leaves_front = root.getChild("leaves_front");
-		this.leaves_left = root.getChild("leaves_left");
-		this.leaves_back = root.getChild("leaves_back");
-		this.leaves_right = root.getChild("leaves_right");
-		this.leaves_top = root.getChild("leaves_top");
-		this.leaves_bottom = root.getChild("leaves_bottom");
+		this.shrub = root.getChild("shrub");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition schrub = partdefinition.addOrReplaceChild("schrub", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition shrub = partdefinition.addOrReplaceChild("shrub", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition left_leg = schrub.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(30, 23).addBox(2.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition left_leg = shrub.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(30, 23).addBox(2.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition right_leg = schrub.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(30, 28).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 0.0F, 0.0F));
+		PartDefinition right_leg = shrub.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(30, 28).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 0.0F, 0.0F));
 
-		PartDefinition left_arm = schrub.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(10.0F, -11.0F, 0.0F));
+		PartDefinition left_arm = shrub.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(10.0F, -11.0F, 0.0F));
 
 		PartDefinition left_r1 = left_arm.addOrReplaceChild("left_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.0F, 0.0F, 0.0F, -1.5708F));
 
-		PartDefinition right_arm = schrub.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-10.0F, -11.0F, 0.0F));
+		PartDefinition right_arm = shrub.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-10.0F, -11.0F, 0.0F));
 
 		PartDefinition right_r1 = right_arm.addOrReplaceChild("right_r1", CubeListBuilder.create().texOffs(0, 23).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.5708F));
 
-		PartDefinition pot = schrub.addOrReplaceChild("pot", CubeListBuilder.create().texOffs(36, 0).addBox(-3.0F, -19.75F, -3.0F, 6.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 43).addBox(-2.0F, -22.75F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.25F, 0.0F));
+		PartDefinition pot = shrub.addOrReplaceChild("pot", CubeListBuilder.create().texOffs(36, 0).addBox(-3.0F, -19.75F, -3.0F, 6.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 43).addBox(-2.0F, -22.75F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.25F, 0.0F));
 
-		PartDefinition torso = schrub.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(39, 31).addBox(1.0F, -7.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-		.texOffs(43, 35).addBox(2.0F, -8.0F, -5.0F, 10.0F, 1.0F, 10.0F, new CubeDeformation(0.0F))
-		.texOffs(43, 35).addBox(2.0F, 5.0F, -5.0F, 10.0F, 1.0F, 10.0F, new CubeDeformation(0.0F))
-		.texOffs(45, 36).addBox(3.0F, -9.0F, -4.0F, 8.0F, 1.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(44, 36).addBox(3.0F, 6.0F, -4.0F, 8.0F, 1.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-7.0F, -10.0F, 0.0F));
+		PartDefinition torso = shrub.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(39, 31).addBox(1.0F, -7.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
+				.texOffs(43, 35).addBox(2.0F, -8.0F, -5.0F, 10.0F, 1.0F, 10.0F, new CubeDeformation(0.0F))
+				.texOffs(43, 35).addBox(2.0F, 5.0F, -5.0F, 10.0F, 1.0F, 10.0F, new CubeDeformation(0.0F))
+				.texOffs(45, 36).addBox(3.0F, -9.0F, -4.0F, 8.0F, 1.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(44, 36).addBox(3.0F, 6.0F, -4.0F, 8.0F, 1.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-7.0F, -10.0F, 0.0F));
 
 		PartDefinition leaves_front = torso.addOrReplaceChild("leaves_front", CubeListBuilder.create(), PartPose.offset(7.0F, 10.0F, 0.0F));
 

@@ -1,22 +1,21 @@
 package net.paveuu.smolbartek;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.paveuu.smolbartek.block.ModBlocks;
+import net.paveuu.smolbartek.entity.ModEntities;
+import net.paveuu.smolbartek.entity.client.SmolBartekRenderer;
 import net.paveuu.smolbartek.item.ModItems;
 import net.paveuu.smolbartek.loot.ModLootModifiers;
 import org.slf4j.Logger;
@@ -35,6 +34,8 @@ public class SmolBartekMod {
         ModBlocks.register(modEventBus);
 
         ModLootModifiers.register(modEventBus);
+
+        ModEntities.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -68,7 +69,7 @@ public class SmolBartekMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntities.SMOL_BARTEK.get(), SmolBartekRenderer::new);
         }
     }
 }
