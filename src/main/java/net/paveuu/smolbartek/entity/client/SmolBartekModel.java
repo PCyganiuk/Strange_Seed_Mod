@@ -8,6 +8,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
+import net.paveuu.smolbartek.entity.animations.ModAnimationDefinitions;
+import net.paveuu.smolbartek.entity.custom.SmolBartekEntity;
 
 public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart shrub;
@@ -218,7 +220,10 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		this.animateWalk(ModAnimationDefinitions.WALKING,limbSwing,limbSwingAmount,2f,2.5f);
+		this.animate(((SmolBartekEntity) entity).idleAnimationState, ModAnimationDefinitions.IDLE,ageInTicks,1f);
 	}
 
 	@Override

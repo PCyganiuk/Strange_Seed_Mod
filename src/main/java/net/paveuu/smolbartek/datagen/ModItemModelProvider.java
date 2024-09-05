@@ -18,6 +18,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         simpleItem(ModItems.STRANGE_SEED);
+        simpleItem(ModItems.STRANGE_PLANT_EGG);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){

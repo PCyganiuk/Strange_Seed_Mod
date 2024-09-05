@@ -55,6 +55,7 @@ public class SmolBartekMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(ModItems.STRANGE_SEED);
+            event.accept(ModItems.STRANGE_PLANT_EGG);
         }
     }
 

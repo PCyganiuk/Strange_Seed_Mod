@@ -32,10 +32,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private ConfiguredModel[] strangeCropStates(BlockState state, CropBlock block, String modelName, String textureName) {
+        int age = state.getValue(((StrangeSeedCropBlock) block).getAgeProperty());
         ConfiguredModel[] models = new ConfiguredModel[1];
-        models[0] = new ConfiguredModel(models().cross(modelName + state.getValue(((StrangeSeedCropBlock) block).getAgeProperty()),
-                new ResourceLocation(SmolBartekMod.MOD_ID, "block/" + textureName + state.getValue(((StrangeSeedCropBlock) block).getAgeProperty()))).renderType("cutout"));
-
+        if(age == 3){
+            models[0] = new ConfiguredModel(models().cube(modelName + state.getValue(((StrangeSeedCropBlock) block).getAgeProperty()),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_other"),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_other"),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_front"),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_other"),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_side"),
+                    new ResourceLocation(SmolBartekMod.MOD_ID,"block/strange_plant_stage3_side")).renderType("cutout"));
+        }
+        else {
+            models[0] = new ConfiguredModel(models().cross(modelName + state.getValue(((StrangeSeedCropBlock) block).getAgeProperty()),
+                    new ResourceLocation(SmolBartekMod.MOD_ID, "block/" + textureName + state.getValue(((StrangeSeedCropBlock) block).getAgeProperty()))).renderType("cutout"));
+        }
         return models;
     }
 
