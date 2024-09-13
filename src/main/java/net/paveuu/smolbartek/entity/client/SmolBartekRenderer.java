@@ -10,7 +10,7 @@ import net.paveuu.smolbartek.entity.custom.SmolBartekEntity;
 
 public class SmolBartekRenderer extends MobRenderer<SmolBartekEntity, SmolBartekModel<SmolBartekEntity>> {
     public SmolBartekRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new SmolBartekModel<>(pContext.bakeLayer(ModModelLayers.SMOL_BARTEK_LAYER)),2f);
+        super(pContext, new SmolBartekModel<>(pContext.bakeLayer(ModModelLayers.SMOL_BARTEK_LAYER)),1f);
     }
 
     @Override

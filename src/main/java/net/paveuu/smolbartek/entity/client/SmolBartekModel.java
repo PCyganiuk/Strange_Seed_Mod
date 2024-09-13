@@ -222,8 +222,9 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animateWalk(ModAnimationDefinitions.WALKING,limbSwing,limbSwingAmount,2f,2.5f);
+		this.animateWalk(ModAnimationDefinitions.WALKING,limbSwing,limbSwingAmount,3f,1f);
 		this.animate(((SmolBartekEntity) entity).idleAnimationState, ModAnimationDefinitions.IDLE,ageInTicks,1f);
+		this.animate(((SmolBartekEntity) entity).sittingAnimationState, ModAnimationDefinitions.SITTING,ageInTicks,1f);
 	}
 
 	@Override
