@@ -31,6 +31,8 @@ public class SmolBartekEntity extends TamableAnimal {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private int fruitCount = 0;
+    private int ageTicks = 0;
 
     @Override
     public void tick() {
@@ -39,6 +41,19 @@ public class SmolBartekEntity extends TamableAnimal {
         if(this.level().isClientSide()){
             setupAnimationStates();
         }
+
+        if(this.fruitCount < 9){
+            final int GROWTH_TIME = 300;
+            this.ageTicks++;
+            if(this.ageTicks >= GROWTH_TIME){
+                fruitCount++;
+                this.ageTicks = 0;
+            }
+        }
+    }
+
+    public int getFruitCount(){
+        return fruitCount;
     }
 
     private void setupAnimationStates(){
@@ -159,6 +174,10 @@ public class SmolBartekEntity extends TamableAnimal {
                     return interactionresult;
                 }
             }
+        }
+        else if (itemstack.is(Items.SHEARS) && this.fruitCount > 0){
+            //TODO implement logic for getting fruits
+            return InteractionResult.SUCCESS;
         }
         else if (itemstack.is(Items.WHEAT_SEEDS)) {
             if (!pPlayer.getAbilities().instabuild) {

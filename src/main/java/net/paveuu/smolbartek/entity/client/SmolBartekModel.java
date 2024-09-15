@@ -13,6 +13,7 @@ import net.paveuu.smolbartek.entity.custom.SmolBartekEntity;
 
 public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart shrub;
+	private SmolBartekEntity smolBartekEntity;
 
 	public SmolBartekModel(ModelPart root) {
 		this.shrub = root.getChild("shrub");
@@ -215,13 +216,47 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition cube_r79 = leaves_bottom.addOrReplaceChild("cube_r79", CubeListBuilder.create().texOffs(79, 31).addBox(2.0F, 0.0F, -1.0F, 6.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, -14.0F, -7.0F, 0.0F, 3.1416F, 0.0F));
 
+		PartDefinition fruits = torso.addOrReplaceChild("fruits", CubeListBuilder.create(), PartPose.offset(7.0F, 10.0F, 0.0F));
+
+		PartDefinition fruit0 = fruits.addOrReplaceChild("fruit0", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -9.0F, -13.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 6.0F));
+
+		PartDefinition fruit1 = fruits.addOrReplaceChild("fruit1", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -9.0F, -13.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, 5.0F));
+
+		PartDefinition fruit2 = fruits.addOrReplaceChild("fruit2", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -9.0F, -13.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(10.0F, 0.0F, 6.0F));
+
+		PartDefinition fruit3 = fruits.addOrReplaceChild("fruit3", CubeListBuilder.create().texOffs(0, 1).addBox(-6.0F, -9.0F, -13.0F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(12.0F, 0.0F, 10.0F));
+
+		PartDefinition fruit4 = fruits.addOrReplaceChild("fruit4", CubeListBuilder.create().texOffs(1, 1).addBox(-5.0F, -9.0F, -13.0F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 0.0F, 11.0F));
+
+		PartDefinition fruit5 = fruits.addOrReplaceChild("fruit5", CubeListBuilder.create().texOffs(0, 1).addBox(-6.0F, -9.0F, -13.0F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(11.0F, 0.0F, 16.0F));
+
+		PartDefinition fruit6 = fruits.addOrReplaceChild("fruit6", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -9.0F, -14.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, 0.0F, 19.0F));
+
+		PartDefinition fruit7 = fruits.addOrReplaceChild("fruit7", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -9.0F, -14.0F, 1.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 0.0F, 19.0F));
+
+		PartDefinition fruit8 = fruits.addOrReplaceChild("fruit8", CubeListBuilder.create().texOffs(1, 1).addBox(-5.0F, -9.0F, -13.0F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(1, 55).addBox(-6.0F, -8.0F, -14.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, 0.0F, 16.0F));
+
+		PartDefinition eyes = torso.addOrReplaceChild("eyes", CubeListBuilder.create().texOffs(56, 61).addBox(-4.0F, -1.5F, -0.5F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(56, 61).addBox(1.0F, -1.5F, -0.5F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(7.0F, -1.5F, -6.5F));
+
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
+		if(entity instanceof SmolBartekEntity){
+			this.smolBartekEntity = (SmolBartekEntity) entity;
+		}
 		this.animateWalk(ModAnimationDefinitions.WALKING,limbSwing,limbSwingAmount,3f,1f);
 		this.animate(((SmolBartekEntity) entity).idleAnimationState, ModAnimationDefinitions.IDLE,ageInTicks,1f);
 		this.animate(((SmolBartekEntity) entity).sittingAnimationState, ModAnimationDefinitions.SITTING,ageInTicks,1f);
@@ -229,6 +264,18 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		ModelPart torso = shrub.getChild("torso");
+		ModelPart fruits = torso.getChild("fruits");
+		int fruitCount = smolBartekEntity.getFruitCount();
+		fruits.getChild("fruit0").visible = fruitCount > 0;
+		fruits.getChild("fruit5").visible = fruitCount > 1;
+		fruits.getChild("fruit7").visible = fruitCount > 2;
+		fruits.getChild("fruit3").visible = fruitCount > 3;
+		fruits.getChild("fruit6").visible = fruitCount > 4;
+		fruits.getChild("fruit1").visible = fruitCount > 5;
+		fruits.getChild("fruit4").visible = fruitCount > 6;
+		fruits.getChild("fruit2").visible = fruitCount > 7;
+		fruits.getChild("fruit8").visible = fruitCount > 8;
 		shrub.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 

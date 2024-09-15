@@ -7,6 +7,7 @@ import net.minecraft.client.animation.KeyframeAnimations;
 
 public class ModAnimationDefinitions {
 
+
     public static final AnimationDefinition WALKING = AnimationDefinition.Builder.withLength(1f).looping()
             .addAnimation("right_leg",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
@@ -72,7 +73,7 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 20f, 45f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition SITTING = AnimationDefinition.Builder.withLength(0.041676664f).looping()
+    public static final AnimationDefinition SITTING = AnimationDefinition.Builder.withLength(3f).looping()
             .addAnimation("right_leg",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 3f, 0f),
@@ -89,6 +90,10 @@ public class ModAnimationDefinitions {
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, -90f),
                                     AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("right_arm",
+                    new AnimationChannel(AnimationChannel.Targets.SCALE,
+                            new Keyframe(0f, KeyframeAnimations.scaleVec(0f, 1f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("left_arm",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(-3f, 0f, 0f),
@@ -97,6 +102,10 @@ public class ModAnimationDefinitions {
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 90f),
                                     AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("left_arm",
+                    new AnimationChannel(AnimationChannel.Targets.SCALE,
+                            new Keyframe(0f, KeyframeAnimations.scaleVec(0f, 0f, 1f),
+                                    AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("pot",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 21f, 0f),
@@ -104,6 +113,10 @@ public class ModAnimationDefinitions {
             .addAnimation("pot",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
                             new Keyframe(0f, KeyframeAnimations.degreeVec(180f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("eyes",
+                    new AnimationChannel(AnimationChannel.Targets.SCALE,
+                            new Keyframe(0f, KeyframeAnimations.scaleVec(1f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
     public static final AnimationDefinition IDLE = AnimationDefinition.Builder.withLength(2f).looping()
             .addAnimation("right_leg",
@@ -169,5 +182,21 @@ public class ModAnimationDefinitions {
                             new Keyframe(1f, KeyframeAnimations.posVec(0f, 0.5f, 0f),
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(2f, KeyframeAnimations.posVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("eyes",
+                    new AnimationChannel(AnimationChannel.Targets.POSITION,
+                            new Keyframe(0.9167666f, KeyframeAnimations.posVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1f, KeyframeAnimations.posVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.0834333f, KeyframeAnimations.posVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("eyes",
+                    new AnimationChannel(AnimationChannel.Targets.SCALE,
+                            new Keyframe(0.9167666f, KeyframeAnimations.scaleVec(1f, 1f, 1f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1f, KeyframeAnimations.scaleVec(1f, 0f, 1f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.0834333f, KeyframeAnimations.scaleVec(1f, 1f, 1f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
 }
