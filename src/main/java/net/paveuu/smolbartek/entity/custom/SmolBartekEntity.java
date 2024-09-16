@@ -1,9 +1,15 @@
 package net.paveuu.smolbartek.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -19,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.paveuu.smolbartek.entity.ModEntities;
+import net.paveuu.smolbartek.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class SmolBartekEntity extends TamableAnimal {
@@ -31,8 +39,11 @@ public class SmolBartekEntity extends TamableAnimal {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState sittingAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-    private int fruitCount = 0;
     private int ageTicks = 0;
+    private static final EntityDataAccessor<Integer> FRUIT_COUNT = SynchedEntityData.defineId(SmolBartekEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> POT_COLOR = SynchedEntityData.defineId(SmolBartekEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> HAS_POT = SynchedEntityData.defineId(SmolBartekEntity.class, EntityDataSerializers.BOOLEAN);
+
 
     @Override
     public void tick() {
@@ -42,18 +53,64 @@ public class SmolBartekEntity extends TamableAnimal {
             setupAnimationStates();
         }
 
-        if(this.fruitCount < 9){
-            final int GROWTH_TIME = 300;
+        if(this.entityData.get(FRUIT_COUNT) < 9){
+            final int GROWTH_TIME = 18000;
             this.ageTicks++;
             if(this.ageTicks >= GROWTH_TIME){
-                fruitCount++;
+                int currentCount = this.entityData.get(FRUIT_COUNT);
+                setFruitCount(currentCount + 1);
                 this.ageTicks = 0;
             }
         }
     }
 
-    public int getFruitCount(){
-        return fruitCount;
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(FRUIT_COUNT,0);
+        this.entityData.define(POT_COLOR, 0xE57757);
+        this.entityData.define(HAS_POT,false);
+    }
+    public int getPotColor() {
+        return this.entityData.get(POT_COLOR);
+    }
+
+    public boolean getHasPot(){
+        return this.entityData.get(HAS_POT);
+    }
+
+    public void setHasPot(){
+        this.entityData.set(HAS_POT,true);
+    }
+
+    public void setPotColor(int color) {
+        this.entityData.set(POT_COLOR, color);
+    }
+
+    public int getFruitCount() {
+        return this.entityData.get(FRUIT_COUNT);
+    }
+
+    public void setFruitCount(int count) {
+        this.entityData.set(FRUIT_COUNT, count);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("FruitCount", this.getFruitCount());
+
+        compound.putInt("PotColor", this.getPotColor());
+
+        compound.putBoolean("HasPot", this.entityData.get(HAS_POT));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setFruitCount(compound.getInt("FruitCount"));
+        this.setPotColor(compound.getInt("PotColor"));
+        this.entityData.set(HAS_POT, compound.getBoolean("HasPot"));
     }
 
     private void setupAnimationStates(){
@@ -91,10 +148,10 @@ public class SmolBartekEntity extends TamableAnimal {
     protected void registerGoals(){
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new FollowOwnerGoal(this, 1.0, 5.0F, 2.0F, false));
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
 
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.1D));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3f));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
     }
 
@@ -102,7 +159,7 @@ public class SmolBartekEntity extends TamableAnimal {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 20D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
-                .add(Attributes.MOVEMENT_SPEED, 1.5D) //too slow movement
+                .add(Attributes.MOVEMENT_SPEED, 0.3D) //too slow movement
                 .add(Attributes.ARMOR_TOUGHNESS, 0.1f)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.5f)
                 .add(Attributes.ATTACK_DAMAGE, 2f);
@@ -162,6 +219,32 @@ public class SmolBartekEntity extends TamableAnimal {
                 this.gameEvent(GameEvent.EAT, this);
                 return InteractionResult.SUCCESS;
             }
+            else if (item instanceof DyeItem dyeItem) {
+                DyeColor dyeColor = dyeItem.getDyeColor();
+                int color = dyeColor.getTextColor();
+                this.setPotColor(color);
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.shrink(1);
+                }
+
+                return InteractionResult.SUCCESS;
+            }
+            else if (itemstack.is(Items.SHEARS) && this.entityData.get(FRUIT_COUNT) > 0){
+                ItemStack fruits = new ItemStack(ModItems.ALEBERRY.get(),this.entityData.get(FRUIT_COUNT)+1);
+                Level level = this.level();
+                double x = this.getX();
+                double y  = this.getY();
+                double z = this.getZ();
+                ItemEntity itemEntity = new ItemEntity(level,x,y,z,fruits);
+                level.addFreshEntity(itemEntity);
+                level.playSound(null, x, y, z, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+
+                if (!pPlayer.getAbilities().instabuild) {
+                    itemstack.hurtAndBreak(this.entityData.get(FRUIT_COUNT), pPlayer, (player) -> player.broadcastBreakEvent(pHand));
+                }
+                setFruitCount(0);
+                return InteractionResult.SUCCESS;
+            }
             else {
                 InteractionResult interactionresult = super.mobInteract(pPlayer, pHand);
                 if ((!interactionresult.consumesAction() || this.isBaby()) && this.isOwnedBy(pPlayer)) {
@@ -175,17 +258,14 @@ public class SmolBartekEntity extends TamableAnimal {
                 }
             }
         }
-        else if (itemstack.is(Items.SHEARS) && this.fruitCount > 0){
-            //TODO implement logic for getting fruits
-            return InteractionResult.SUCCESS;
-        }
-        else if (itemstack.is(Items.WHEAT_SEEDS)) {
+        else if (itemstack.is(Items.FLOWER_POT)) {
             if (!pPlayer.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
 
-            if (this.random.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+            if (!ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                 this.tame(pPlayer);
+                setHasPot();
                 this.navigation.stop();
                 this.setTarget((LivingEntity)null);
                 this.setOrderedToSit(true);

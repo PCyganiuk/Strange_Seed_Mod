@@ -21,6 +21,9 @@ public class ModItems {
             ()-> new ForgeSpawnEggItem(ModEntities.SMOL_BARTEK,0x7e9680,0xc5d1c5,
                     new Item.Properties()));
 
+    public static final RegistryObject<Item> ALEBERRY = ITEMS.register("strange_plant_fruit",
+            ()-> new Item(new Item.Properties().food(ModFoods.ALEBERRY)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

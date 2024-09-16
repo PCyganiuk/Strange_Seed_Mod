@@ -14,13 +14,12 @@ public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, SmolBartekMod.MOD_ID, existingFileHelper);
     }
-
     @Override
     protected void registerModels() {
         simpleItem(ModItems.STRANGE_SEED);
         simpleItem(ModItems.STRANGE_PLANT_EGG);
+        simpleItem(ModItems.ALEBERRY);
     }
-
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",

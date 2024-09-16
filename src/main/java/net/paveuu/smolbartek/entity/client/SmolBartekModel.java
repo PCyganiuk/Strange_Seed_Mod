@@ -13,10 +13,12 @@ import net.paveuu.smolbartek.entity.custom.SmolBartekEntity;
 
 public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart shrub;
+	private final ModelPart pot;
 	private SmolBartekEntity smolBartekEntity;
 
 	public SmolBartekModel(ModelPart root) {
 		this.shrub = root.getChild("shrub");
+		this.pot = this.shrub.getChild("pot");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -38,7 +40,7 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 		PartDefinition right_r1 = right_arm.addOrReplaceChild("right_r1", CubeListBuilder.create().texOffs(0, 23).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.5708F));
 
 		PartDefinition pot = shrub.addOrReplaceChild("pot", CubeListBuilder.create().texOffs(36, 0).addBox(-3.0F, -19.75F, -3.0F, 6.0F, 2.0F, 6.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 43).addBox(-2.0F, -22.75F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.25F, 0.0F));
+				.texOffs(0, 43).addBox(-2.0F, -22.75F, -2.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 23.0F, 0.0F)); //y offset=-1.25
 
 		PartDefinition torso = shrub.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(39, 31).addBox(1.0F, -7.0F, -6.0F, 12.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
 				.texOffs(43, 35).addBox(2.0F, -8.0F, -5.0F, 10.0F, 1.0F, 10.0F, new CubeDeformation(0.0F))
@@ -266,17 +268,26 @@ public class SmolBartekModel<T extends Entity> extends HierarchicalModel<T> {
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		ModelPart torso = shrub.getChild("torso");
 		ModelPart fruits = torso.getChild("fruits");
+		int potColor = this.smolBartekEntity.getPotColor();
+		float potRed = ((potColor >> 16) & 0xFF) / 255.0F;
+		float potGreen = ((potColor >> 8) & 0xFF) / 255.0F;
+		float potBlue = (potColor & 0xFF) / 255.0F;
 		int fruitCount = smolBartekEntity.getFruitCount();
-		fruits.getChild("fruit0").visible = fruitCount > 0;
-		fruits.getChild("fruit5").visible = fruitCount > 1;
-		fruits.getChild("fruit7").visible = fruitCount > 2;
-		fruits.getChild("fruit3").visible = fruitCount > 3;
-		fruits.getChild("fruit6").visible = fruitCount > 4;
-		fruits.getChild("fruit1").visible = fruitCount > 5;
-		fruits.getChild("fruit4").visible = fruitCount > 6;
-		fruits.getChild("fruit2").visible = fruitCount > 7;
-		fruits.getChild("fruit8").visible = fruitCount > 8;
+		fruits.getChild("fruit0").visible = fruitCount >= 1;
+		fruits.getChild("fruit5").visible = fruitCount >= 2;
+		fruits.getChild("fruit7").visible = fruitCount >= 3;
+		fruits.getChild("fruit3").visible = fruitCount >= 4;
+		fruits.getChild("fruit6").visible = fruitCount >= 5;
+		fruits.getChild("fruit1").visible = fruitCount >= 6;
+		fruits.getChild("fruit4").visible = fruitCount >= 7;
+		fruits.getChild("fruit2").visible = fruitCount >= 8;
+		fruits.getChild("fruit8").visible = fruitCount >= 9;
+		this.shrub.getChild("pot").visible = false;
 		shrub.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		if(smolBartekEntity.getHasPot()) {
+			this.shrub.getChild("pot").visible = true;
+			pot.render(poseStack, vertexConsumer, packedLight, packedOverlay, potRed, potGreen, potBlue, alpha);
+		}
 	}
 
 	@Override

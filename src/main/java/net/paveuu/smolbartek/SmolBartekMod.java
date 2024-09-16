@@ -14,8 +14,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.paveuu.smolbartek.block.ModBlocks;
+import net.paveuu.smolbartek.effect.ModEffects;
 import net.paveuu.smolbartek.entity.ModEntities;
 import net.paveuu.smolbartek.entity.client.SmolBartekRenderer;
+import net.paveuu.smolbartek.item.ModFoods;
 import net.paveuu.smolbartek.item.ModItems;
 import net.paveuu.smolbartek.loot.ModLootModifiers;
 import org.slf4j.Logger;
@@ -36,6 +38,7 @@ public class SmolBartekMod {
         ModLootModifiers.register(modEventBus);
 
         ModEntities.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -56,6 +59,7 @@ public class SmolBartekMod {
         if(event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(ModItems.STRANGE_SEED);
             event.accept(ModItems.STRANGE_PLANT_EGG);
+            event.accept(ModItems.ALEBERRY);
         }
     }
 
