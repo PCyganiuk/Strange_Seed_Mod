@@ -2,7 +2,6 @@ package net.paveuu.smolbartek.entity.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -157,9 +156,9 @@ public class SmolBartekEntity extends TamableAnimal {
 
     public static AttributeSupplier.Builder createAttributes(){
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 20D)
+                .add(Attributes.MAX_HEALTH, 100D)
                 .add(Attributes.FOLLOW_RANGE, 24D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D) //too slow movement
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
                 .add(Attributes.ARMOR_TOUGHNESS, 0.1f)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.5f)
                 .add(Attributes.ATTACK_DAMAGE, 2f);

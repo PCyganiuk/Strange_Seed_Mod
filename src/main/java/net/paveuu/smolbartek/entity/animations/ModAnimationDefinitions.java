@@ -7,7 +7,6 @@ import net.minecraft.client.animation.KeyframeAnimations;
 
 public class ModAnimationDefinitions {
 
-
     public static final AnimationDefinition WALKING = AnimationDefinition.Builder.withLength(1f).looping()
             .addAnimation("right_leg",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
@@ -43,35 +42,35 @@ public class ModAnimationDefinitions {
                                     AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("right_arm",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
-                            new Keyframe(0f, KeyframeAnimations.posVec(2f, -2f, 1f),
+                            new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 1f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(0.5f, KeyframeAnimations.posVec(2f, -2f, -1f),
+                            new Keyframe(0.5f, KeyframeAnimations.posVec(0f, 0f, -1f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(1f, KeyframeAnimations.posVec(2f, -2f, 1f),
+                            new Keyframe(1f, KeyframeAnimations.posVec(0f, 0f, 1f),
                                     AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("right_arm",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                            new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 20f, -45f),
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(18.88f, 6.72f, 26.12f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, -20f, -45f),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(-18.88f, -6.72f, 26.12f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 20f, -45f),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(18.88f, 6.72f, 26.12f),
                                     AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("left_arm",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
-                            new Keyframe(0f, KeyframeAnimations.posVec(-2f, -2f, -1f),
+                            new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, -1f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(0.5f, KeyframeAnimations.posVec(-2f, -2f, 1f),
+                            new Keyframe(0.5f, KeyframeAnimations.posVec(0f, 0f, 1f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(1f, KeyframeAnimations.posVec(-2f, -2f, -1f),
+                            new Keyframe(1f, KeyframeAnimations.posVec(0f, 0f, -1f),
                                     AnimationChannel.Interpolations.LINEAR)))
             .addAnimation("left_arm",
                     new AnimationChannel(AnimationChannel.Targets.ROTATION,
-                            new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 20f, 45f),
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(-18.88f, 6.72f, -26.12f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, -25f, 45f),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(23.66f, -8.31f, -26.74f),
                                     AnimationChannel.Interpolations.LINEAR),
-                            new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 20f, 45f),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(-18.88f, 6.72f, -26.12f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
     public static final AnimationDefinition SITTING = AnimationDefinition.Builder.withLength(3f).looping()
             .addAnimation("right_leg",

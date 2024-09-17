@@ -27,6 +27,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         LootItemCondition.Builder lootItemConditionBuilder = LootItemBlockStatePropertyCondition
                 .hasBlockStateProperties(ModBlocks.STRANGE_PLANT_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StrangeSeedCropBlock.AGE,3));
+
         this.add(ModBlocks.STRANGE_PLANT_CROP.get(),createCropDrops(ModBlocks.STRANGE_PLANT_CROP.get(), ModItems.STRANGE_PLANT_EGG.get(),
                 Items.FLOWER_POT,lootItemConditionBuilder));
     }
