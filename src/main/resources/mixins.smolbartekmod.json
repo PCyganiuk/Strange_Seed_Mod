@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.paveuu.smolbartek.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.smolbartekmod.refmap.json",
+  "mixins": [
+    "SmolBartekAccessor"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
